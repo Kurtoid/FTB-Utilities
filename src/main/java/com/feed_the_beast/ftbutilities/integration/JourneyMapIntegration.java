@@ -157,6 +157,9 @@ public class JourneyMapIntegration implements IClientPlugin
 
 			for (Map.Entry<Integer, ClientClaimedChunks.ChunkData> entry : team.chunks.entrySet())
 			{
+				if (!entry.getValue().canSee()) {
+					continue;
+				}
 				int x = entry.getKey() % ChunkSelectorMap.TILES_GUI;
 				int z = entry.getKey() / ChunkSelectorMap.TILES_GUI;
 				data[x + z * ChunkSelectorMap.TILES_GUI] = entry.getValue();

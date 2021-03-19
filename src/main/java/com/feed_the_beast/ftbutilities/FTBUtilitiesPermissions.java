@@ -63,6 +63,7 @@ public class FTBUtilitiesPermissions
 
 	// Claims //
 	public static final String CLAIMS_OTHER_SEE_INFO = "ftbutilities.other_player.claims.see_info";
+	public static final String CLAIMS_OTHER_SEE_CLAIMS = "ftbutilities.other_player.claims.see_claims";
 	public static final String CLAIMS_OTHER_CLAIM = "ftbutilities.other_player.claims.claim";
 	public static final String CLAIMS_OTHER_UNCLAIM = "ftbutilities.other_player.claims.unclaim";
 	public static final String CLAIMS_OTHER_LOAD = "ftbutilities.other_player.claims.load";
@@ -138,6 +139,8 @@ public class FTBUtilitiesPermissions
 		PermissionAPI.registerNode(HOMES_LIST_OTHER, DefaultPermissionLevel.OP, "Allow to list other people homes");
 		PermissionAPI.registerNode(HOMES_TELEPORT_OTHER, DefaultPermissionLevel.OP, "Allow to teleport to other people homes");
 		PermissionAPI.registerNode(CLAIMS_OTHER_SEE_INFO, DefaultPermissionLevel.OP, "Allow player to see info of other team chunks");
+		PermissionAPI.registerNode(CLAIMS_OTHER_SEE_CLAIMS, DefaultPermissionLevel.OP,
+				"Allow player to see info of other team chunks");
 		PermissionAPI.registerNode(CLAIMS_OTHER_CLAIM, DefaultPermissionLevel.OP, "Allow player to claim other team chunks");
 		PermissionAPI.registerNode(CLAIMS_OTHER_UNCLAIM, DefaultPermissionLevel.OP, "Allow player to unclaim other team chunks");
 		PermissionAPI.registerNode(CLAIMS_OTHER_LOAD, DefaultPermissionLevel.OP, "Allow player to load other team chunks");

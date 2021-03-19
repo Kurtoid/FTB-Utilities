@@ -64,6 +64,8 @@ public class MessageClaimedChunksUpdate extends MessageToClient
 		teams = new Short2ObjectOpenHashMap<>();
 
 		boolean canSeeChunkInfo = PermissionAPI.hasPermission(player, FTBUtilitiesPermissions.CLAIMS_OTHER_SEE_INFO);
+		boolean canSeeOtherTeamClaims = PermissionAPI.hasPermission(player,
+				FTBUtilitiesPermissions.CLAIMS_OTHER_SEE_CLAIMS);
 
 		for (int x1 = 0; x1 < ChunkSelectorMap.TILES_GUI; x1++)
 		{
@@ -93,17 +95,21 @@ public class MessageClaimedChunksUpdate extends MessageToClient
 					}
 
 					boolean member = chunkTeam.isMember(p);
+					boolean canSee = false;
 					int flags = 0;
 
 					if (canSeeChunkInfo || member)
 					{
-						if (chunk.isLoaded())
-						{
+						if (chunk.isLoaded()) {
 							flags = Bits.setFlag(flags, ClientClaimedChunks.ChunkData.LOADED, true);
 						}
 					}
+					if (member || canSeeOtherTeamClaims) {
+						canSee = true;
+					}
 
-					team.chunks.put(x1 + z1 * ChunkSelectorMap.TILES_GUI, new ClientClaimedChunks.ChunkData(team, flags));
+					team.chunks.put(x1 + z1 * ChunkSelectorMap.TILES_GUI,
+							new ClientClaimedChunks.ChunkData(team, flags, canSee));
 				}
 			}
 		}

@@ -58,7 +58,9 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 		{
 			with = NULL_CHUNK_DATA;
 		}
-
+		if (!with.canSee()) {
+			return true;
+		}
 		return (data.flags != with.flags || data.team != with.team) && !with.isLoaded();
 	}
 
@@ -90,7 +92,7 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 		{
 			data = chunkData[i];
 
-			if (data == null)
+			if (data == null || !data.canSee())
 			{
 				continue;
 			}

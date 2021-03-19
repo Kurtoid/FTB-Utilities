@@ -62,10 +62,18 @@ public class ClientClaimedChunks
 		public final Team team;
 		public final int flags;
 
+		private boolean canSeeClaim = true;
+
 		public ChunkData(Team t, int f)
 		{
 			team = t;
 			flags = f;
+			canSeeClaim = true;
+		}
+
+		public ChunkData(Team t, int f, boolean canSee) {
+			this(t, f);
+			canSeeClaim = canSee;
 		}
 
 		public int hashCode()
@@ -90,6 +98,10 @@ public class ClientClaimedChunks
 		public boolean isLoaded()
 		{
 			return Bits.getFlag(flags, LOADED);
+		}
+
+		public boolean canSee() {
+			return this.canSeeClaim;
 		}
 	}
 }
