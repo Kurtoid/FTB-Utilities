@@ -98,13 +98,13 @@ public class JourneyMapIntegration implements IClientPlugin
 			{
 				clientAPI.remove(p);
 
-				if (chunk == null)
+				if (chunk == null || !chunk.canSee())
 				{
 					polygons.remove(pos);
 				}
 			}
 
-			if (chunk != null)
+			if (chunk != null && chunk.canSee())
 			{
 				MapPolygon poly = PolygonHelper.createChunkPolygon(pos.x, 0, pos.z);
 				p = new PolygonOverlay(FTBUtilities.MOD_ID, "claimed_" + pos.x + '_' + pos.z, dim, (ShapeProperties) chunk.team.shapeProperties, poly);

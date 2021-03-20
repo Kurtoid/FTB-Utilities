@@ -95,7 +95,7 @@ public class MessageClaimedChunksUpdate extends MessageToClient
 					}
 
 					boolean member = chunkTeam.isMember(p);
-					boolean canSee = false;
+					int canSee = 0;
 					int flags = 0;
 
 					if (canSeeChunkInfo || member)
@@ -105,11 +105,13 @@ public class MessageClaimedChunksUpdate extends MessageToClient
 						}
 					}
 					if (member || canSeeOtherTeamClaims) {
-						canSee = true;
+						flags = Bits.setFlag(flags, ClientClaimedChunks.ChunkData.CAN_SEE, true);
+					} else {
+						flags = Bits.setFlag(flags, ClientClaimedChunks.ChunkData.CAN_SEE, false);
 					}
 
 					team.chunks.put(x1 + z1 * ChunkSelectorMap.TILES_GUI,
-							new ClientClaimedChunks.ChunkData(team, flags, canSee));
+							new ClientClaimedChunks.ChunkData(team, flags));
 				}
 			}
 		}

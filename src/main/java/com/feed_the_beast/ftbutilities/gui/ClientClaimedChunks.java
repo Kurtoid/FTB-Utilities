@@ -58,22 +58,15 @@ public class ClientClaimedChunks
 		public static final DataIn.Deserializer<ChunkData> DESERIALIZER = data -> new ChunkData(Team.currentTeam, data.readInt());
 
 		public static final int LOADED = 1;
+		public static final int CAN_SEE = 2;
 
 		public final Team team;
 		public final int flags;
-
-		private boolean canSeeClaim = true;
 
 		public ChunkData(Team t, int f)
 		{
 			team = t;
 			flags = f;
-			canSeeClaim = true;
-		}
-
-		public ChunkData(Team t, int f, boolean canSee) {
-			this(t, f);
-			canSeeClaim = canSee;
 		}
 
 		public int hashCode()
@@ -101,7 +94,7 @@ public class ClientClaimedChunks
 		}
 
 		public boolean canSee() {
-			return this.canSeeClaim;
+			return Bits.getFlag(flags, CAN_SEE);
 		}
 	}
 }

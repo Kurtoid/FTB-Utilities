@@ -41,7 +41,8 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 	public static GuiClaimedChunks instance;
 	private static final ClientClaimedChunks.ChunkData[] chunkData = new ClientClaimedChunks.ChunkData[ChunkSelectorMap.TILES_GUI * ChunkSelectorMap.TILES_GUI];
 	private static int claimedChunks, loadedChunks, maxClaimedChunks, maxLoadedChunks;
-	private static final ClientClaimedChunks.ChunkData NULL_CHUNK_DATA = new ClientClaimedChunks.ChunkData(new ClientClaimedChunks.Team((short) 0), 0);
+	private static final ClientClaimedChunks.ChunkData NULL_CHUNK_DATA = new ClientClaimedChunks.ChunkData(
+			new ClientClaimedChunks.Team((short) 0), 0);
 
 	private static final CachedVertexData AREA = new CachedVertexData(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
 
@@ -58,9 +59,6 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 		{
 			with = NULL_CHUNK_DATA;
 		}
-		if (!with.canSee()) {
-			return true;
-		}
 		return (data.flags != with.flags || data.team != with.team) && !with.isLoaded();
 	}
 
@@ -76,8 +74,10 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 
 		for (ClientClaimedChunks.Team team : m.teams.values())
 		{
-			for (Map.Entry<Integer, ClientClaimedChunks.ChunkData> entry : team.chunks.entrySet())
-			{
+			for (Map.Entry<Integer, ClientClaimedChunks.ChunkData> entry : team.chunks.entrySet()) {
+				if (!entry.getValue().canSee()) {
+					continue;
+				}
 				int x = entry.getKey() % ChunkSelectorMap.TILES_GUI;
 				int z = entry.getKey() / ChunkSelectorMap.TILES_GUI;
 				chunkData[x + z * ChunkSelectorMap.TILES_GUI] = entry.getValue();
@@ -112,7 +112,7 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 		{
 			data = chunkData[i];
 
-			if (data == null)
+			if (data == null || !data.canSee())
 			{
 				continue;
 			}
@@ -303,7 +303,7 @@ public class GuiClaimedChunks extends GuiChunkSelectorBase
 	{
 		ClientClaimedChunks.ChunkData data = chunkData[button.index];
 
-		if (data != null)
+		if (data != null && data.canSee())
 		{
 			list.add(data.team.nameComponent.getFormattedText());
 			list.add(TextFormatting.GREEN + I18n.format("ftbutilities.lang.chunks.claimed_area"));
